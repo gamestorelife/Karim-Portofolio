@@ -1,469 +1,731 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Karim Salem · Front End Architect</title>
-  <!-- Bootstrap 5 + Icons + Google Font -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #070b12;  /* deep ultra dark */
-      color: #eef4ff;
-      line-height: 1.5;
-      overflow-x: hidden;
-    }
-    /* premium glow & gradients */
-    .bg-aggressive {
-      background: radial-gradient(circle at 20% 30%, rgba(0, 230, 255, 0.08) 0%, transparent 40%),
-                  radial-gradient(circle at 80% 70%, rgba(255, 0, 200, 0.08) 0%, transparent 45%),
-                  #070b12;
-    }
-    .display-1, .display-2, .display-3 {
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-    }
-    .text-gradient {
-      background: linear-gradient(135deg, #fff 0%, #9bc5ff 40%, #b88aff 80%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .border-glow {
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1), inset 0 0 10px rgba(0, 255, 255, 0.05);
-      backdrop-filter: blur(5px);
-    }
-    .card-premium {
-      background: rgba(12, 20, 30, 0.75);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(80, 180, 255, 0.2);
-      border-radius: 28px;
-      transition: all 0.2s ease;
-      height: 100%;
-      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.8);
-    }
-    .card-premium:hover {
-      border-color: #00ccff;
-      box-shadow: 0 0 30px rgba(0, 180, 255, 0.3), 0 20px 40px -12px black;
-      transform: translateY(-4px);
-    }
-    .btn-cpa {
-      background: linear-gradient(95deg, #00c8ff, #b300ff);
-      border: none;
-      color: #000;
-      font-weight: 700;
-      padding: 14px 34px;
-      border-radius: 60px;
-      letter-spacing: -0.01em;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
-      text-transform: uppercase;
-      font-size: 0.9rem;
-    }
-    .btn-cpa:hover {
-      box-shadow: 0 0 40px rgba(180, 0, 255, 0.7);
-      transform: scale(1.02);
-      color: #000;
-      background: linear-gradient(95deg, #2ad4ff, #cc33ff);
-    }
-    .btn-outline-aggressive {
-      border: 1.5px solid rgba(0, 220, 255, 0.7);
-      color: #cceeff;
-      border-radius: 60px;
-      padding: 12px 28px;
-      font-weight: 600;
-      transition: all 0.2s;
-      background: transparent;
-    }
-    .btn-outline-aggressive:hover {
-      background: rgba(0, 220, 255, 0.1);
-      border-color: #00e0ff;
-      color: white;
-      box-shadow: 0 0 25px rgba(0, 200, 255, 0.3);
-    }
-    .project-badge {
-      background: rgba(0, 255, 255, 0.08);
-      border: 1px solid rgba(0, 255, 200, 0.25);
-      border-radius: 100px;
-      padding: 8px 18px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-    .project-badge i {
-      color: #00e0ff;
-    }
-    .project-badge:hover {
-      background: rgba(0, 255, 200, 0.2);
-      border-color: #00ffcc;
-      box-shadow: 0 0 18px rgba(0, 255, 200, 0.3);
-    }
-    .section-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 2rem;
-      position: relative;
-      display: inline-block;
-    }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 0;
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, #00e0ff, #c000ff);
-      border-radius: 4px;
-    }
-    .stat-number {
-      font-size: 2.8rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #fff, #99ddff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.2;
-    }
-    .skill-tag {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(150, 220, 255, 0.2);
-      border-radius: 40px;
-      padding: 6px 18px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #c1dbff;
-      transition: 0.1s;
-    }
-    .skill-tag:hover {
-      border-color: #2af;
-      color: white;
-      background: rgba(0, 160, 255, 0.1);
-    }
-    .timeline-item {
-      border-left: 3px solid rgba(0, 200, 255, 0.5);
-      padding-left: 25px;
-      position: relative;
-      margin-bottom: 2.5rem;
-    }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -10px;
-      top: 6px;
-      width: 17px;
-      height: 17px;
-      border-radius: 50%;
-      background: #00d0ff;
-      box-shadow: 0 0 20px #00b8ff;
-    }
-    .hover-lift {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .hover-lift:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 35px rgba(0, 200, 255, 0.25);
-    }
-    .footer-link {
-      color: #9bb8dd;
-      text-decoration: none;
-      transition: 0.2s;
-      font-weight: 500;
-    }
-    .footer-link:hover {
-      color: #00d4ff;
-      text-shadow: 0 0 12px #00b0ff;
-    }
-    .bg-grid {
-      background-image: linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
-      background-size: 45px 45px;
-    }
-    /* mobile adjustments */
-    @media (max-width: 768px) {
-      .display-3 { font-size: 2.5rem; }
-      .stat-number { font-size: 2rem; }
-      .section-title { font-size: 1.8rem; }
-    }
-  </style>
-</head>
-<body class="bg-aggressive bg-grid">
-
-  <!-- NAV / CONTACT STRIP -->
-  <nav class="navbar navbar-expand-lg py-3 border-bottom border-secondary border-opacity-25" style="background: rgba(5,8,15,0.8); backdrop-filter: blur(10px);">
-    <div class="container">
-      <a class="navbar-brand fw-bold text-gradient fs-4" href="#">KARIM<span class="text-white">.</span>SALEM</a>
-      <div class="d-flex gap-3">
-        <a href="mailto:karimsalem.dev@gmail.com" class="btn btn-outline-aggressive btn-sm d-none d-sm-inline-flex align-items-center"><i class="bi bi-envelope-fill me-2"></i> Hire Me</a>
-        <a href="https://www.linkedin.com/in/karim-salim-021763385" target="_blank" class="btn btn-cpa btn-sm d-flex align-items-center"><i class="bi bi-linkedin me-2"></i> LINKEDIN</a>
-      </div>
-    </div>
-  </nav>
-
-  <!-- HERO – ULTRA AGGRESSIVE CPA STYLE -->
-  <header class="container py-5 my-5">
-    <div class="row align-items-center g-5">
-      <div class="col-lg-7">
-        <div class="d-inline-block mb-4 px-3 py-2 rounded-pill border border-info border-opacity-25" style="background: rgba(0,255,255,0.05);">
-          <span class="text-info fw-semibold"><i class="bi bi-lightning-charge-fill me-1"></i> 15+ HIGH‑STAKES PROJECTS · REVENUE‑DRIVEN · ENTERPRISE‑GRADE</span>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Karim Salem · Front End Architect</title>
+    <!-- Bootstrap 5 + Icons + Google Font -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        background: #070b12; /* deep ultra dark */
+        color: #eef4ff;
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+      /* premium glow & gradients */
+      .bg-aggressive {
+        background:
+          radial-gradient(
+            circle at 20% 30%,
+            rgba(0, 230, 255, 0.08) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 70%,
+            rgba(255, 0, 200, 0.08) 0%,
+            transparent 45%
+          ),
+          #070b12;
+      }
+      .display-1,
+      .display-2,
+      .display-3 {
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+      }
+      .text-gradient {
+        background: linear-gradient(135deg, #fff 0%, #9bc5ff 40%, #b88aff 80%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .border-glow {
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        box-shadow:
+          0 0 20px rgba(0, 255, 255, 0.1),
+          inset 0 0 10px rgba(0, 255, 255, 0.05);
+        backdrop-filter: blur(5px);
+      }
+      .card-premium {
+        background: rgba(12, 20, 30, 0.75);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(80, 180, 255, 0.2);
+        border-radius: 28px;
+        transition: all 0.2s ease;
+        height: 100%;
+        box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.8);
+      }
+      .card-premium:hover {
+        border-color: #00ccff;
+        box-shadow:
+          0 0 30px rgba(0, 180, 255, 0.3),
+          0 20px 40px -12px black;
+        transform: translateY(-4px);
+      }
+      .btn-cpa {
+        background: linear-gradient(95deg, #00c8ff, #b300ff);
+        border: none;
+        color: #000;
+        font-weight: 700;
+        padding: 14px 34px;
+        border-radius: 60px;
+        letter-spacing: -0.01em;
+        transition: all 0.2s ease;
+        box-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
+        text-transform: uppercase;
+        font-size: 0.9rem;
+      }
+      .btn-cpa:hover {
+        box-shadow: 0 0 40px rgba(180, 0, 255, 0.7);
+        transform: scale(1.02);
+        color: #000;
+        background: linear-gradient(95deg, #2ad4ff, #cc33ff);
+      }
+      .btn-outline-aggressive {
+        border: 1.5px solid rgba(0, 220, 255, 0.7);
+        color: #cceeff;
+        border-radius: 60px;
+        padding: 12px 28px;
+        font-weight: 600;
+        transition: all 0.2s;
+        background: transparent;
+      }
+      .btn-outline-aggressive:hover {
+        background: rgba(0, 220, 255, 0.1);
+        border-color: #00e0ff;
+        color: white;
+        box-shadow: 0 0 25px rgba(0, 200, 255, 0.3);
+      }
+      .project-badge {
+        background: rgba(0, 255, 255, 0.08);
+        border: 1px solid rgba(0, 255, 200, 0.25);
+        border-radius: 100px;
+        padding: 8px 18px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: 0.2s;
+      }
+      .project-badge i {
+        color: #00e0ff;
+      }
+      .project-badge:hover {
+        background: rgba(0, 255, 200, 0.2);
+        border-color: #00ffcc;
+        box-shadow: 0 0 18px rgba(0, 255, 200, 0.3);
+      }
+      .section-title {
+        font-size: 2.2rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 2rem;
+        position: relative;
+        display: inline-block;
+      }
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #00e0ff, #c000ff);
+        border-radius: 4px;
+      }
+      .stat-number {
+        font-size: 2.8rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff, #99ddff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+      }
+      .skill-tag {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(150, 220, 255, 0.2);
+        border-radius: 40px;
+        padding: 6px 18px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #c1dbff;
+        transition: 0.1s;
+      }
+      .skill-tag:hover {
+        border-color: #2af;
+        color: white;
+        background: rgba(0, 160, 255, 0.1);
+      }
+      .timeline-item {
+        border-left: 3px solid rgba(0, 200, 255, 0.5);
+        padding-left: 25px;
+        position: relative;
+        margin-bottom: 2.5rem;
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -10px;
+        top: 6px;
+        width: 17px;
+        height: 17px;
+        border-radius: 50%;
+        background: #00d0ff;
+        box-shadow: 0 0 20px #00b8ff;
+      }
+      .hover-lift {
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+      .hover-lift:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 0 35px rgba(0, 200, 255, 0.25);
+      }
+      .footer-link {
+        color: #9bb8dd;
+        text-decoration: none;
+        transition: 0.2s;
+        font-weight: 500;
+      }
+      .footer-link:hover {
+        color: #00d4ff;
+        text-shadow: 0 0 12px #00b0ff;
+      }
+      .bg-grid {
+        background-image:
+          linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
+        background-size: 45px 45px;
+      }
+      /* mobile adjustments */
+      @media (max-width: 768px) {
+        .display-3 {
+          font-size: 2.5rem;
+        }
+        .stat-number {
+          font-size: 2rem;
+        }
+        .section-title {
+          font-size: 1.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-aggressive bg-grid">
+    <!-- NAV / CONTACT STRIP -->
+    <nav
+      class="navbar navbar-expand-lg py-3 border-bottom border-secondary border-opacity-25"
+      style="background: rgba(5, 8, 15, 0.8); backdrop-filter: blur(10px)"
+    >
+      <div class="container">
+        <a class="navbar-brand fw-bold text-gradient fs-4" href="#"
+          >KARIM<span class="text-white">.</span>SALEM</a
+        >
+        <div class="d-flex gap-3">
+          <a
+            href="mailto:karimsalem.dev@gmail.com"
+            class="btn btn-outline-aggressive btn-sm d-none d-sm-inline-flex align-items-center"
+            ><i class="bi bi-envelope-fill me-2"></i> Hire Me</a
+          >
+          <a
+            href="https://www.linkedin.com/in/karim-salim-021763385"
+            target="_blank"
+            class="btn btn-cpa btn-sm d-flex align-items-center"
+            ><i class="bi bi-linkedin me-2"></i> LINKEDIN</a
+          >
         </div>
-        <h1 class="display-3 fw-bold lh-1 mb-4">
-          <span class="text-gradient">FRONT‑END</span><br>
-          <span class="text-white">ARCHITECT</span>
-        </h1>
-        <p class="lead fs-5 text-secondary mb-4 pe-lg-5" style="color: #b0c8e5 !important;">
-          I build <strong class="text-white">high‑availability booking engines</strong>, mission‑critical platforms, and premium digital experiences that directly impact revenue. 
-          Trusted by <strong class="text-info">Dynamis Capital Group</strong> to secure and scale 15+ enterprise sites.
+      </div>
+    </nav>
+
+    <!-- HERO – ULTRA AGGRESSIVE CPA STYLE -->
+    <header class="container py-5 my-5">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-7">
+          <div
+            class="d-inline-block mb-4 px-3 py-2 rounded-pill border border-info border-opacity-25"
+            style="background: rgba(0, 255, 255, 0.05)"
+          >
+            <span class="text-info fw-semibold"
+              ><i class="bi bi-lightning-charge-fill me-1"></i> 15+ HIGH‑STAKES
+              PROJECTS · REVENUE‑DRIVEN · ENTERPRISE‑GRADE</span
+            >
+          </div>
+          <h1 class="display-3 fw-bold lh-1 mb-4">
+            <span class="text-gradient">FRONT‑END</span><br />
+            <span class="text-white">ARCHITECT</span>
+          </h1>
+          <p
+            class="lead fs-5 text-secondary mb-4 pe-lg-5"
+            style="color: #b0c8e5 !important"
+          >
+            I build
+            <strong class="text-white">high‑availability booking engines</strong
+            >, mission‑critical platforms, and premium digital experiences that
+            directly impact revenue. Trusted by
+            <strong class="text-info">scale 15+ enterprise sites.</strong>
+          </p>
+          <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="#projects" class="btn btn-cpa btn-lg px-5"
+              ><i class="bi bi-collection-play me-2"></i> SEE LIVE PROJECTS</a
+            >
+            <a href="#experience" class="btn btn-outline-aggressive btn-lg px-4"
+              ><i class="bi bi-file-text me-2"></i> RESUME IMPACT</a
+            >
+          </div>
+          <!-- stat strip -->
+          <div class="row mt-5 pt-3 g-4">
+            <div class="col-4">
+              <div class="stat-number">15+</div>
+              <div class="text-secondary small text-uppercase fw-semibold">
+                Sites managed
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="stat-number">30%</div>
+              <div class="text-secondary small text-uppercase fw-semibold">
+                Bug reduction
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="stat-number">20%</div>
+              <div class="text-secondary small text-uppercase fw-semibold">
+                Productivity ↑
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card-premium p-5 text-center">
+            <div class="display-1 fw-bold text-gradient mb-2">⚡</div>
+            <h3 class="fw-bold text-white">ULTRA‑AGGRESSIVE CPA</h3>
+            <p
+              class="text-secondary mt-2 mb-4"
+              style="color: #b0c8e5 !important"
+            >
+              Performance, security & conversion at scale. Every line of code is
+              a direct revenue driver.
+            </p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+              <span class="skill-tag">React.js</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">Next.js</span>
+              <span class="skill-tag">Redux</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Laravel</span>
+            </div>
+            <hr class="border-secondary my-4" />
+            <div class="d-flex align-items-center justify-content-center gap-3">
+              <i class="bi bi-telephone-fill fs-4 text-info"></i>
+              <span class="fw-semibold">+2 010 9919 6340</span>
+            </div>
+            <div
+              class="d-flex align-items-center justify-content-center gap-3 mt-2"
+            >
+              <i class="bi bi-geo-alt-fill fs-5 text-info"></i>
+              <span>Cairo, Egypt · Remote Global</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PROJECTS – PREVIOUS WORK (LINKS) -->
+    <section id="projects" class="container py-5 my-4">
+      <div
+        class="d-flex justify-content-between align-items-end mb-5 flex-wrap"
+      >
+        <h2 class="section-title">
+          LIVE PROJECTS<span class="text-info">.</span>
+        </h2>
+        <p class="text-secondary mb-0" style="color: #9bb8dd !important">
+          High‑traffic, revenue‑critical platforms · 7 showcased
         </p>
-        <div class="d-flex flex-wrap gap-3 mt-4">
-          <a href="#projects" class="btn btn-cpa btn-lg px-5"><i class="bi bi-collection-play me-2"></i> SEE LIVE PROJECTS</a>
-          <a href="#experience" class="btn btn-outline-aggressive btn-lg px-4"><i class="bi bi-file-text me-2"></i> RESUME IMPACT</a>
+      </div>
+      <div class="row g-4">
+        <!-- dubaibooker -->
+        <div class="col-md-6 col-lg-4">
+          <a
+            href="https://dubaibooker.com"
+            target="_blank"
+            class="text-decoration-none"
+          >
+            <div class="card-premium p-4 h-100 hover-lift">
+              <div class="d-flex justify-content-between align-items-start">
+                <i class="bi bi-globe2 fs-1 text-info"></i>
+                <span class="project-badge"
+                  ><i class="bi bi-arrow-up-right me-1"></i>LIVE</span
+                >
+              </div>
+              <h5 class="fw-bold mt-3 text-white">DubaiBooker</h5>
+              <p class="small text-secondary" style="color: #a0b8d4 !important">
+                Luxury booking engine · villas, yachts, transfers, activities.
+                High‑availability system.
+              </p>
+            </div>
+          </a>
         </div>
-        <!-- stat strip -->
-        <div class="row mt-5 pt-3 g-4">
-          <div class="col-4">
-            <div class="stat-number">15+</div>
-            <div class="text-secondary small text-uppercase fw-semibold">Sites managed</div>
-          </div>
-          <div class="col-4">
-            <div class="stat-number">30%</div>
-            <div class="text-secondary small text-uppercase fw-semibold">Bug reduction</div>
-          </div>
-          <div class="col-4">
-            <div class="stat-number">20%</div>
-            <div class="text-secondary small text-uppercase fw-semibold">Productivity ↑</div>
-          </div>
+        <!-- mykonosbooker -->
+        <div class="col-md-6 col-lg-4">
+          <a
+            href="http://mykonosbooker.com"
+            target="_blank"
+            class="text-decoration-none"
+          >
+            <div class="card-premium p-4 h-100 hover-lift">
+              <div class="d-flex justify-content-between align-items-start">
+                <i class="bi bi-globe2 fs-1 text-info"></i>
+                <span class="project-badge"
+                  ><i class="bi bi-arrow-up-right me-1"></i>LIVE</span
+                >
+              </div>
+              <h5 class="fw-bold mt-3 text-white">Mykonos Booker</h5>
+              <p class="small text-secondary" style="color: #a0b8d4 !important">
+                Exclusive Greece luxury travel: villas, hotels, VIP concierge &
+                activities.
+              </p>
+            </div>
+          </a>
+        </div>
+        <!-- 111luxury -->
+        <div class="col-md-6 col-lg-4">
+          <a
+            href="http://111luxury.com"
+            target="_blank"
+            class="text-decoration-none"
+          >
+            <div class="card-premium p-4 h-100 hover-lift">
+              <div class="d-flex justify-content-between align-items-start">
+                <i class="bi bi-globe2 fs-1 text-info"></i>
+                <span class="project-badge"
+                  ><i class="bi bi-arrow-up-right me-1"></i>LIVE</span
+                >
+              </div>
+              <h5 class="fw-bold mt-3 text-white">111 Luxury</h5>
+              <p class="small text-secondary" style="color: #a0b8d4 !important">
+                High‑end luxury portfolio & property showcase.
+                Performance‑tuned.
+              </p>
+            </div>
+          </a>
+        </div>
+        <!-- elemaryachts -->
+        <div class="col-md-6 col-lg-4">
+          <a
+            href="https://elemaryachts.com"
+            target="_blank"
+            class="text-decoration-none"
+          >
+            <div class="card-premium p-4 h-100 hover-lift">
+              <div class="d-flex justify-content-between align-items-start">
+                <i class="bi bi-globe2 fs-1 text-info"></i>
+                <span class="project-badge"
+                  ><i class="bi bi-arrow-up-right me-1"></i>LIVE</span
+                >
+              </div>
+              <h5 class="fw-bold mt-3 text-white">Elemar Yachts</h5>
+              <p class="small text-secondary" style="color: #a0b8d4 !important">
+                Global yacht charters: Monaco, Dubai, Mykonos. Premium booking
+                flow.
+              </p>
+            </div>
+          </a>
+        </div>
+        <!-- eliteclasstransfers -->
+        <div class="col-md-6 col-lg-4">
+          <a
+            href="https://eliteclasstransfers.com"
+            target="_blank"
+            class="text-decoration-none"
+          >
+            <div class="card-premium p-4 h-100 hover-lift">
+              <div class="d-flex justify-content-between align-items-start">
+                <i class="bi bi-globe2 fs-1 text-info"></i>
+                <span class="project-badge"
+                  ><i class="bi bi-arrow-up-right me-1"></i>LIVE</span
+                >
+              </div>
+              <h5 class="fw-bold mt-3 text-white">Elite Class Transfers</h5>
+              <p class="small text-secondary" style="color: #a0b8d4 !important">
+                VIP transportation & car rental. Real‑time booking, high‑end
+                fleet.
+              </p>
+            </div>
+          </a>
+        </div>
+        <!-- dynamiscapitalgroup -->
+        <div class="col-md-6 col-lg-4">
+          <a
+            href="https://dynamiscapitalgroup.com"
+            target="_blank"
+            class="text-decoration-none"
+          >
+            <div class="card-premium p-4 h-100 hover-lift">
+              <div class="d-flex justify-content-between align-items-start">
+                <i class="bi bi-globe2 fs-1 text-info"></i>
+                <span class="project-badge"
+                  ><i class="bi bi-arrow-up-right me-1"></i>LIVE</span
+                >
+              </div>
+              <h5 class="fw-bold mt-3 text-white">Dynamis Capital Group</h5>
+              <p class="small text-secondary" style="color: #a0b8d4 !important">
+                Enterprise holding · 15+ sub‑brands, critical infrastructure,
+                security.
+              </p>
+            </div>
+          </a>
+        </div>
+        <!-- flintbodycare -->
+        <div class="col-md-6 col-lg-4">
+          <a
+            href="https://flintbodycare.com"
+            target="_blank"
+            class="text-decoration-none"
+          >
+            <div class="card-premium p-4 h-100 hover-lift">
+              <div class="d-flex justify-content-between align-items-start">
+                <i class="bi bi-globe2 fs-1 text-info"></i>
+                <span class="project-badge"
+                  ><i class="bi bi-arrow-up-right me-1"></i>LIVE</span
+                >
+              </div>
+              <h5 class="fw-bold mt-3 text-white">Flint Bodycare</h5>
+              <p class="small text-secondary" style="color: #a0b8d4 !important">
+                E‑commerce · own venture. Full front‑end & backend ownership.
+              </p>
+            </div>
+          </a>
         </div>
       </div>
-      <div class="col-lg-5">
-        <div class="card-premium p-5 text-center">
-          <div class="display-1 fw-bold text-gradient mb-2">⚡</div>
-          <h3 class="fw-bold text-white">ULTRA‑AGGRESSIVE CPA</h3>
-          <p class="text-secondary mt-2 mb-4" style="color: #b0c8e5 !important;">Performance, security & conversion at scale. Every line of code is a direct revenue driver.</p>
-          <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <span class="skill-tag">React.js</span>
-            <span class="skill-tag">TypeScript</span>
-            <span class="skill-tag">Next.js</span>
-            <span class="skill-tag">Redux</span>
-            <span class="skill-tag">Node.js</span>
-            <span class="skill-tag">Laravel</span>
-          </div>
-          <hr class="border-secondary my-4">
-          <div class="d-flex align-items-center justify-content-center gap-3">
-            <i class="bi bi-telephone-fill fs-4 text-info"></i>
-            <span class="fw-semibold">+2 010 9919 6340</span>
-          </div>
-          <div class="d-flex align-items-center justify-content-center gap-3 mt-2">
-            <i class="bi bi-geo-alt-fill fs-5 text-info"></i>
-            <span>Cairo, Egypt · Remote Global</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+    </section>
 
-  <!-- PROJECTS – PREVIOUS WORK (LINKS) -->
-  <section id="projects" class="container py-5 my-4">
-    <div class="d-flex justify-content-between align-items-end mb-5 flex-wrap">
-      <h2 class="section-title">LIVE PROJECTS<span class="text-info">.</span></h2>
-      <p class="text-secondary mb-0" style="color: #9bb8dd !important;">High‑traffic, revenue‑critical platforms · 7 showcased</p>
-    </div>
-    <div class="row g-4">
-      <!-- dubaibooker -->
-      <div class="col-md-6 col-lg-4">
-        <a href="https://dubaibooker.com" target="_blank" class="text-decoration-none">
-          <div class="card-premium p-4 h-100 hover-lift">
-            <div class="d-flex justify-content-between align-items-start">
-              <i class="bi bi-globe2 fs-1 text-info"></i>
-              <span class="project-badge"><i class="bi bi-arrow-up-right me-1"></i>LIVE</span>
+    <!-- EXPERIENCE – AGGRESSIVE TIMELINE -->
+    <section id="experience" class="container py-5 my-4">
+      <h2 class="section-title mb-5">MISSION‑CRITICAL EXPERIENCE</h2>
+      <div class="row g-5">
+        <div class="col-lg-7">
+          <div class="timeline-item">
+            <div class="d-flex flex-wrap align-items-center gap-3 mb-2">
+              <h3 class="h4 fw-bold mb-0 text-white">FULL STACK DEVELOPER</h3>
+              <span
+                class="badge bg-info bg-opacity-25 text-info px-3 py-2 rounded-pill"
+                >Jan 2022 – Present</span
+              >
             </div>
-            <h5 class="fw-bold mt-3 text-white">DubaiBooker</h5>
-            <p class="small text-secondary" style="color: #a0b8d4 !important;">Luxury booking engine · villas, yachts, transfers, activities. High‑availability system.</p>
-          </div>
-        </a>
-      </div>
-      <!-- mykonosbooker -->
-      <div class="col-md-6 col-lg-4">
-        <a href="http://mykonosbooker.com" target="_blank" class="text-decoration-none">
-          <div class="card-premium p-4 h-100 hover-lift">
-            <div class="d-flex justify-content-between align-items-start">
-              <i class="bi bi-globe2 fs-1 text-info"></i>
-              <span class="project-badge"><i class="bi bi-arrow-up-right me-1"></i>LIVE</span>
+            <p class="text-info fw-semibold mb-2">
+              Dynamis Capital Group · Enterprise / Financial
+            </p>
+            <p class="text-secondary" style="color: #b0c8e5 !important">
+              Own the entire digital presence for a major holding company — 15+
+              sites, high‑availability booking engine, real‑time transactions.
+              Direct impact on revenue & customer satisfaction. Access to all
+              critical communication infrastructure, ensuring enterprise‑level
+              security and data privacy.
+            </p>
+            <div class="d-flex flex-wrap gap-2 mt-3">
+              <span class="skill-tag">React.js</span
+              ><span class="skill-tag">Redux Toolkit</span
+              ><span class="skill-tag">Node.js</span
+              ><span class="skill-tag">Laravel</span
+              ><span class="skill-tag">APIs</span>
             </div>
-            <h5 class="fw-bold mt-3 text-white">Mykonos Booker</h5>
-            <p class="small text-secondary" style="color: #a0b8d4 !important;">Exclusive Greece luxury travel: villas, hotels, VIP concierge & activities.</p>
           </div>
-        </a>
-      </div>
-      <!-- 111luxury -->
-      <div class="col-md-6 col-lg-4">
-        <a href="http://111luxury.com" target="_blank" class="text-decoration-none">
-          <div class="card-premium p-4 h-100 hover-lift">
-            <div class="d-flex justify-content-between align-items-start">
-              <i class="bi bi-globe2 fs-1 text-info"></i>
-              <span class="project-badge"><i class="bi bi-arrow-up-right me-1"></i>LIVE</span>
+          <div class="timeline-item">
+            <div class="d-flex flex-wrap align-items-center gap-3 mb-2">
+              <h3 class="h4 fw-bold mb-0 text-white">JUNIOR REACT DEVELOPER</h3>
+              <span
+                class="badge bg-secondary bg-opacity-25 text-light px-3 py-2 rounded-pill"
+                >2018 – 2019</span
+              >
             </div>
-            <h5 class="fw-bold mt-3 text-white">111 Luxury</h5>
-            <p class="small text-secondary" style="color: #a0b8d4 !important;">High‑end luxury portfolio & property showcase. Performance‑tuned.</p>
+            <p class="text-info fw-semibold mb-2">
+              Labelbox, Inc. (Charel Ann Bierras‑Santiago)
+            </p>
+            <p class="text-secondary" style="color: #b0c8e5 !important">
+              Engineered reusable React components, modular libraries, peer code
+              reviews, documentation. Reduced development time and ensured
+              coding standards.
+            </p>
           </div>
-        </a>
-      </div>
-      <!-- elemaryachts -->
-      <div class="col-md-6 col-lg-4">
-        <a href="https://elemaryachts.com" target="_blank" class="text-decoration-none">
-          <div class="card-premium p-4 h-100 hover-lift">
-            <div class="d-flex justify-content-between align-items-start">
-              <i class="bi bi-globe2 fs-1 text-info"></i>
-              <span class="project-badge"><i class="bi bi-arrow-up-right me-1"></i>LIVE</span>
+          <div class="timeline-item">
+            <div class="d-flex flex-wrap align-items-center gap-3 mb-2">
+              <h3 class="h4 fw-bold mb-0 text-white">OWNER / OPERATOR</h3>
+              <span
+                class="badge bg-info bg-opacity-25 text-info px-3 py-2 rounded-pill"
+                >Aug 2025 – Present</span
+              >
             </div>
-            <h5 class="fw-bold mt-3 text-white">Elemar Yachts</h5>
-            <p class="small text-secondary" style="color: #a0b8d4 !important;">Global yacht charters: Monaco, Dubai, Mykonos. Premium booking flow.</p>
-          </div>
-        </a>
-      </div>
-      <!-- eliteclasstransfers -->
-      <div class="col-md-6 col-lg-4">
-        <a href="https://eliteclasstransfers.com" target="_blank" class="text-decoration-none">
-          <div class="card-premium p-4 h-100 hover-lift">
-            <div class="d-flex justify-content-between align-items-start">
-              <i class="bi bi-globe2 fs-1 text-info"></i>
-              <span class="project-badge"><i class="bi bi-arrow-up-right me-1"></i>LIVE</span>
-            </div>
-            <h5 class="fw-bold mt-3 text-white">Elite Class Transfers</h5>
-            <p class="small text-secondary" style="color: #a0b8d4 !important;">VIP transportation & car rental. Real‑time booking, high‑end fleet.</p>
-          </div>
-        </a>
-      </div>
-      <!-- dynamiscapitalgroup -->
-      <div class="col-md-6 col-lg-4">
-        <a href="https://dynamiscapitalgroup.com" target="_blank" class="text-decoration-none">
-          <div class="card-premium p-4 h-100 hover-lift">
-            <div class="d-flex justify-content-between align-items-start">
-              <i class="bi bi-globe2 fs-1 text-info"></i>
-              <span class="project-badge"><i class="bi bi-arrow-up-right me-1"></i>LIVE</span>
-            </div>
-            <h5 class="fw-bold mt-3 text-white">Dynamis Capital Group</h5>
-            <p class="small text-secondary" style="color: #a0b8d4 !important;">Enterprise holding · 15+ sub‑brands, critical infrastructure, security.</p>
-          </div>
-        </a>
-      </div>
-      <!-- flintbodycare -->
-      <div class="col-md-6 col-lg-4">
-        <a href="https://flintbodycare.com" target="_blank" class="text-decoration-none">
-          <div class="card-premium p-4 h-100 hover-lift">
-            <div class="d-flex justify-content-between align-items-start">
-              <i class="bi bi-globe2 fs-1 text-info"></i>
-              <span class="project-badge"><i class="bi bi-arrow-up-right me-1"></i>LIVE</span>
-            </div>
-            <h5 class="fw-bold mt-3 text-white">Flint Bodycare</h5>
-            <p class="small text-secondary" style="color: #a0b8d4 !important;">E‑commerce · own venture. Full front‑end & backend ownership.</p>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- EXPERIENCE – AGGRESSIVE TIMELINE -->
-  <section id="experience" class="container py-5 my-4">
-    <h2 class="section-title mb-5">MISSION‑CRITICAL EXPERIENCE</h2>
-    <div class="row g-5">
-      <div class="col-lg-7">
-        <div class="timeline-item">
-          <div class="d-flex flex-wrap align-items-center gap-3 mb-2">
-            <h3 class="h4 fw-bold mb-0 text-white">FULL STACK DEVELOPER</h3>
-            <span class="badge bg-info bg-opacity-25 text-info px-3 py-2 rounded-pill">Jan 2022 – Present</span>
-          </div>
-          <p class="text-info fw-semibold mb-2">Dynamis Capital Group · Enterprise / Financial</p>
-          <p class="text-secondary" style="color: #b0c8e5 !important;">Own the entire digital presence for a major holding company — 15+ sites, high‑availability booking engine, real‑time transactions. Direct impact on revenue & customer satisfaction. Access to all critical communication infrastructure, ensuring enterprise‑level security and data privacy.</p>
-          <div class="d-flex flex-wrap gap-2 mt-3">
-            <span class="skill-tag">React.js</span><span class="skill-tag">Redux Toolkit</span><span class="skill-tag">Node.js</span><span class="skill-tag">Laravel</span><span class="skill-tag">APIs</span>
+            <p class="text-info fw-semibold mb-2">
+              Flint Home Ltd (E‑commerce) · flintbodycare.com
+            </p>
+            <p class="text-secondary" style="color: #b0c8e5 !important">
+              Full ownership of e‑commerce venture: front‑end experience,
+              backend, product strategy.
+            </p>
           </div>
         </div>
-        <div class="timeline-item">
-          <div class="d-flex flex-wrap align-items-center gap-3 mb-2">
-            <h3 class="h4 fw-bold mb-0 text-white">JUNIOR REACT DEVELOPER</h3>
-            <span class="badge bg-secondary bg-opacity-25 text-light px-3 py-2 rounded-pill">2018 – 2019</span>
-          </div>
-          <p class="text-info fw-semibold mb-2">Labelbox, Inc. (Charel Ann Bierras‑Santiago)</p>
-          <p class="text-secondary" style="color: #b0c8e5 !important;">Engineered reusable React components, modular libraries, peer code reviews, documentation. Reduced development time and ensured coding standards.</p>
-        </div>
-        <div class="timeline-item">
-          <div class="d-flex flex-wrap align-items-center gap-3 mb-2">
-            <h3 class="h4 fw-bold mb-0 text-white">OWNER / OPERATOR</h3>
-            <span class="badge bg-info bg-opacity-25 text-info px-3 py-2 rounded-pill">Aug 2025 – Present</span>
-          </div>
-          <p class="text-info fw-semibold mb-2">Flint Home Ltd (E‑commerce) · flintbodycare.com</p>
-          <p class="text-secondary" style="color: #b0c8e5 !important;">Full ownership of e‑commerce venture: front‑end experience, backend, product strategy.</p>
-        </div>
-      </div>
-      <div class="col-lg-5">
-        <div class="card-premium p-4 p-lg-5">
-          <h4 class="fw-bold text-white mb-4"><i class="bi bi-bar-chart-fill text-info me-2"></i>IMPACT METRICS</h4>
-          <div class="mb-4">
-            <div class="d-flex justify-content-between"><span>Reusable components productivity</span><span class="text-info fw-bold">+20%</span></div>
-            <div class="progress bg-dark mt-1" style="height: 8px;"><div class="progress-bar bg-info" style="width:80%"></div></div>
-          </div>
-          <div class="mb-4">
-            <div class="d-flex justify-content-between"><span>State‑related bugs reduced</span><span class="text-info fw-bold">-30%</span></div>
-            <div class="progress bg-dark mt-1" style="height: 8px;"><div class="progress-bar bg-info" style="width:70%"></div></div>
-          </div>
-          <div class="mb-4">
-            <div class="d-flex justify-content-between"><span>High‑availability uptime</span><span class="text-info fw-bold">99.9%</span></div>
-            <div class="progress bg-dark mt-1" style="height: 8px;"><div class="progress-bar bg-info" style="width:99%"></div></div>
-          </div>
-          <hr class="border-secondary my-4">
-          <h5 class="fw-bold text-white"><i class="bi bi-code-slash text-info me-2"></i>TECH ARSENAL</h5>
-          <div class="d-flex flex-wrap gap-2 mt-3">
-            <span class="skill-tag">TypeScript</span><span class="skill-tag">Next.js</span><span class="skill-tag">Angular</span>
-            <span class="skill-tag">Styled‑Components</span><span class="skill-tag">CSS Modules</span><span class="skill-tag">Figma</span>
-            <span class="skill-tag">Agile</span><span class="skill-tag">PHP</span><span class="skill-tag">Databases</span>
-          </div>
-          <div class="mt-4 pt-2">
-            <p class="mb-1"><i class="bi bi-check-circle-fill text-info me-2"></i> Arabic (Native) · English (Fluent) · Italian</p>
-            <p class="mb-0"><i class="bi bi-mortarboard-fill text-info me-2"></i> B.Tech Computer Science · Cairo Higher Institute (2011–2013)</p>
+        <div class="col-lg-5">
+          <div class="card-premium p-4 p-lg-5">
+            <h4 class="fw-bold text-white mb-4">
+              <i class="bi bi-bar-chart-fill text-info me-2"></i>IMPACT METRICS
+            </h4>
+            <div class="mb-4">
+              <div class="d-flex justify-content-between">
+                <span>Reusable components productivity</span
+                ><span class="text-info fw-bold">+20%</span>
+              </div>
+              <div class="progress bg-dark mt-1" style="height: 8px">
+                <div class="progress-bar bg-info" style="width: 80%"></div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <div class="d-flex justify-content-between">
+                <span>State‑related bugs reduced</span
+                ><span class="text-info fw-bold">-30%</span>
+              </div>
+              <div class="progress bg-dark mt-1" style="height: 8px">
+                <div class="progress-bar bg-info" style="width: 70%"></div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <div class="d-flex justify-content-between">
+                <span>High‑availability uptime</span
+                ><span class="text-info fw-bold">99.9%</span>
+              </div>
+              <div class="progress bg-dark mt-1" style="height: 8px">
+                <div class="progress-bar bg-info" style="width: 99%"></div>
+              </div>
+            </div>
+            <hr class="border-secondary my-4" />
+            <h5 class="fw-bold text-white">
+              <i class="bi bi-code-slash text-info me-2"></i>TECH ARSENAL
+            </h5>
+            <div class="d-flex flex-wrap gap-2 mt-3">
+              <span class="skill-tag">TypeScript</span
+              ><span class="skill-tag">Next.js</span
+              ><span class="skill-tag">Angular</span>
+              <span class="skill-tag">Styled‑Components</span
+              ><span class="skill-tag">CSS Modules</span
+              ><span class="skill-tag">Figma</span>
+              <span class="skill-tag">Agile</span
+              ><span class="skill-tag">PHP</span
+              ><span class="skill-tag">Databases</span>
+            </div>
+            <div class="mt-4 pt-2">
+              <p class="mb-1">
+                <i class="bi bi-check-circle-fill text-info me-2"></i> Arabic
+                (Native) · English (Fluent) · Italian
+              </p>
+              <p class="mb-0">
+                <i class="bi bi-mortarboard-fill text-info me-2"></i> B.Tech
+                Computer Science · Cairo Higher Institute (2011–2013)
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CTA ULTRA AGGRESSIVE -->
-  <section class="container my-5 py-5">
-    <div class="p-5 rounded-4 text-center position-relative" style="background: linear-gradient(145deg, #0d1420, #080e17); border: 1px solid rgba(0, 200, 255, 0.3); box-shadow: 0 0 70px rgba(0, 180, 255, 0.15);">
-      <h2 class="display-5 fw-bold text-white mb-3">READY TO SCALE REVENUE<span class="text-gradient">?</span></h2>
-      <p class="fs-5 text-secondary mb-5 mx-auto" style="max-width: 700px; color: #b0c8e5 !important;">I don’t just build interfaces — I build <span class="text-info fw-bold">high‑performance, secure, conversion‑driven</span> systems. Let’s dominate.</p>
-      <div class="d-flex flex-wrap gap-4 justify-content-center">
-        <a href="mailto:karimsalem.dev@gmail.com" class="btn btn-cpa btn-lg px-5 py-3"><i class="bi bi-send-fill me-2"></i> KARIMSALEM.DEV@GMAIL.COM</a>
-        <a href="tel:+201099196340" class="btn btn-outline-aggressive btn-lg px-4 py-3"><i class="bi bi-telephone-fill me-2"></i> +2 010 9919 6340</a>
+    <!-- CTA ULTRA AGGRESSIVE -->
+    <section class="container my-5 py-5">
+      <div
+        class="p-5 rounded-4 text-center position-relative"
+        style="
+          background: linear-gradient(145deg, #0d1420, #080e17);
+          border: 1px solid rgba(0, 200, 255, 0.3);
+          box-shadow: 0 0 70px rgba(0, 180, 255, 0.15);
+        "
+      >
+        <h2 class="display-5 fw-bold text-white mb-3">
+          READY TO SCALE REVENUE<span class="text-gradient">?</span>
+        </h2>
+        <p
+          class="fs-5 text-secondary mb-5 mx-auto"
+          style="max-width: 700px; color: #b0c8e5 !important"
+        >
+          I don’t just build interfaces — I build
+          <span class="text-info fw-bold"
+            >high‑performance, secure, conversion‑driven</span
+          >
+          systems. Let’s dominate.
+        </p>
+        <div class="d-flex flex-wrap gap-4 justify-content-center">
+          <a
+            href="mailto:karimsalem.dev@gmail.com"
+            class="btn btn-cpa btn-lg px-5 py-3"
+            ><i class="bi bi-send-fill me-2"></i> KARIMSALEM.DEV@GMAIL.COM</a
+          >
+          <a
+            href="tel:+201099196340"
+            class="btn btn-outline-aggressive btn-lg px-4 py-3"
+            ><i class="bi bi-telephone-fill me-2"></i> +2 010 9919 6340</a
+          >
+        </div>
+        <p
+          class="mt-5 mb-0 text-secondary small"
+          style="color: #7e96b0 !important"
+        >
+          <i class="bi bi-shield-lock-fill me-1"></i> Active security clearance
+          · Enterprise‑trusted
+        </p>
       </div>
-      <p class="mt-5 mb-0 text-secondary small" style="color: #7e96b0 !important;"><i class="bi bi-shield-lock-fill me-1"></i> Active security clearance · Enterprise‑trusted</p>
-    </div>
-  </section>
+    </section>
 
-  <!-- FOOTER -->
-  <footer class="border-top border-secondary border-opacity-25 py-4 mt-5">
-    <div class="container d-flex flex-wrap justify-content-between align-items-center">
-      <p class="mb-0 text-secondary" style="color: #8ba0bc !important;">© 2026 Karim Salem · Front‑End Architect</p>
-      <div class="d-flex gap-4">
-        <a href="https://www.linkedin.com/in/karim-salim-021763385" class="footer-link" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>
-        <a href="https://dynamiscapitalgroup.com" class="footer-link" target="_blank"><i class="bi bi-building"></i> Dynamis</a>
-        <a href="https://flintbodycare.com" class="footer-link" target="_blank"><i class="bi bi-cart"></i> Flint</a>
+    <!-- FOOTER -->
+    <footer class="border-top border-secondary border-opacity-25 py-4 mt-5">
+      <div
+        class="container d-flex flex-wrap justify-content-between align-items-center"
+      >
+        <p class="mb-0 text-secondary" style="color: #8ba0bc !important">
+          © 2026 Karim Salem · Front‑End Architect
+        </p>
+        <div class="d-flex gap-4">
+          <a
+            href="https://www.linkedin.com/in/karim-salim-021763385"
+            class="footer-link"
+            target="_blank"
+            ><i class="bi bi-linkedin"></i> LinkedIn</a
+          >
+          <a
+            href="https://dynamiscapitalgroup.com"
+            class="footer-link"
+            target="_blank"
+            ><i class="bi bi-building"></i> Dynamis</a
+          >
+          <a
+            href="https://flintbodycare.com"
+            class="footer-link"
+            target="_blank"
+            ><i class="bi bi-cart"></i> Flint</a
+          >
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
